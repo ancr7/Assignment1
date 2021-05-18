@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ItemListTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2021-05-18T09:28:04" hostname="ayush-predator" time="0.097">
+  <properties/>
+  <testcase name="isInputValidSampleTest()" classname="ItemListTest" time="0.038"/>
+  <testcase name="manufacturedTaxSampleTest1()" classname="ItemListTest" time="0.002"/>
+  <testcase name="check price appear once" classname="ItemListTest" time="0.002"/>
+  <testcase name="When price format is wrong" classname="ItemListTest" time="0.001"/>
+  <testcase name="When input is Empty" classname="ItemListTest" time="0.001"/>
+  <testcase name="rawTaxSampleTest1()" classname="ItemListTest" time="0.001"/>
+  <testcase name="importedTaxSampleTest1()" classname="ItemListTest" time="0.001"/>
+  <testcase name="importedTaxSampleTest2()" classname="ItemListTest" time="0.001"/>
+  <testcase name="importedTaxSampleTest3()" classname="ItemListTest" time="0.001"/>
+  <testcase name="check type appear once" classname="ItemListTest" time="0.001"/>
+  <testcase name="When name format is wrong" classname="ItemListTest" time="0.002"/>
+  <testcase name="When type format is wrong" classname="ItemListTest" time="0.001"/>
+  <testcase name="checkRawTaxInputIsValid()" classname="ItemListTest" time="0.004"/>
+  <testcase name="When quantity format is wrong" classname="ItemListTest" time="0.001"/>
+  <testcase name="check quantity when -ve" classname="ItemListTest" time="0.002"/>
+  <testcase name="check when position is invalid" classname="ItemListTest" time="0.002"/>
+  <testcase name="checkExtractData()" classname="ItemListTest" time="0.001"/>
+  <testcase name="checkCalculateCostTypeRaw()" classname="ItemListTest" time="0.0"/>
+  <testcase name="checkImportedTaxInputIsValid()" classname="ItemListTest" time="0.001"/>
+  <testcase name="checkCalculateCostTypeManufactured()" classname="ItemListTest" time="0.0"/>
+  <testcase name="check quantity appear once" classname="ItemListTest" time="0.002"/>
+  <testcase name="check name comes first" classname="ItemListTest" time="0.001"/>
+  <testcase name="check name appear once" classname="ItemListTest" time="0.002"/>
+  <testcase name="check type value is among (raw/imported/manufactured" classname="ItemListTest" time="0.002"/>
+  <testcase name="checkCalculateCostTypeImported()" classname="ItemListTest" time="0.001"/>
+  <testcase name="checkManufacturedTaxInputIsValid()" classname="ItemListTest" time="0.001"/>
+  <testcase name="check price when -ve" classname="ItemListTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
