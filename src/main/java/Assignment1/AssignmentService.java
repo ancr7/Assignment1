@@ -1,3 +1,5 @@
+package Assignment1;
+
 public class AssignmentService {
 
   private ItemModel model;

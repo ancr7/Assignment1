@@ -1,7 +1,7 @@
-AssignmentController.java
- AssignmentController
-AssignmentService.java
- AssignmentService
-ItemModel.java
- ItemModel
- ItemModel$types
+Assignment1/ItemModel.java
+ Assignment1.ItemModel
+ Assignment1.ItemModel$types
+Assignment1/AssignmentService.java
+ Assignment1.AssignmentService
+Assignment1/AssignmentController.java
+ Assignment1.AssignmentController

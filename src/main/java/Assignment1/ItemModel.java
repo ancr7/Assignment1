@@ -1,3 +1,5 @@
+package Assignment1;
+
 public class ItemModel {
 
   // all member variables
@@ -20,8 +22,6 @@ public class ItemModel {
   }
 
   // getter methods
-  public String getName() { return name; }
-
   public double getPrice() {return price; }
 
   public int getQuantity() { return quantity; }

@@ -1,9 +1,10 @@
-import static org.junit.jupiter.api.Assertions.*;
+package Assignment1;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class AssignmentServiceTest {
+public class AssignmentServiceTest {
 
   @Test
   @DisplayName("When input is Empty")
