@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Class ItemListTest</title>
+<title>Test results - Class AssignmentServiceTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Class ItemListTest</h1>
+<h1>Class AssignmentServiceTest</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/default-package.html">default-package</a> &gt; ItemListTest</div>
+<a href="../packages/default-package.html">default-package</a> &gt; AssignmentServiceTest</div>
 <div id="summary">
 <table>
 <tr>
@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">27</div>
+<div class="counter">33</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.073s</div>
+<div class="counter">0.067s</div>
 <p>duration</p>
 </div>
 </td>
@@ -63,6 +63,9 @@
 <li>
 <a href="#tab0">Tests</a>
 </li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -78,19 +81,43 @@
 <tr>
 <td class="success">checkCalculateCostTypeImported()</td>
 <td class="success">checkCalculateCostTypeImported()</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">checkCalculateCostTypeManufactured()</td>
+<td class="success">checkCalculateCostTypeManufactured()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">checkCalculateCostTypeManufactured()</td>
-<td class="success">checkCalculateCostTypeManufactured()</td>
+<td class="success">checkCalculateCostTypeRaw()</td>
+<td class="success">checkCalculateCostTypeRaw()</td>
 <td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">checkCalculateCostTypeRaw()</td>
-<td class="success">checkCalculateCostTypeRaw()</td>
-<td class="success">0s</td>
+<td class="success">check Empty name</td>
+<td class="success">checkEmptyName()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">check Empty name</td>
+<td class="success">checkEmptyPrice()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">check Empty quantity</td>
+<td class="success">checkEmptyQuantity()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">check Empty Type</td>
+<td class="success">checkEmptyType()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -102,7 +129,7 @@
 <tr>
 <td class="success">check when position is invalid</td>
 <td class="success">checkExtractWordEdgeCases()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -120,7 +147,7 @@
 <tr>
 <td class="success">When name format is wrong</td>
 <td class="success">checkInputName()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -138,7 +165,7 @@
 <tr>
 <td class="success">When type format is wrong</td>
 <td class="success">checkInputType()</td>
-<td class="success">0.001s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -150,7 +177,7 @@
 <tr>
 <td class="success">check name comes first</td>
 <td class="success">checkNameComesFirst()</td>
-<td class="success">0.001s</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -162,72 +189,84 @@
 <tr>
 <td class="success">check quantity when -ve</td>
 <td class="success">checkQuantityNonNegative()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">checkRawTaxInputIsValid()</td>
 <td class="success">checkRawTaxInputIsValid()</td>
-<td class="success">0.004s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">check type value is among (raw/imported/manufactured</td>
 <td class="success">checkTypeIsValid()</td>
-<td class="success">0.002s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">importedTaxSampleTest1()</td>
-<td class="success">importedTaxSampleTest1()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">importedTaxSampleTest2()</td>
-<td class="success">importedTaxSampleTest2()</td>
+<td class="success">importedTaxWhenTotalIs144()</td>
+<td class="success">importedTaxWhenTotalIs144()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">importedTaxSampleTest3()</td>
-<td class="success">importedTaxSampleTest3()</td>
+<td class="success">importedTaxWhenTotalIs443()</td>
+<td class="success">importedTaxWhenTotalIs443()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">isInputValidSampleTest()</td>
-<td class="success">isInputValidSampleTest()</td>
-<td class="success">0.038s</td>
+<td class="success">importedTaxWhenTotalIs90()</td>
+<td class="success">importedTaxWhenTotalIs90()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">manufacturedTaxSampleTest1()</td>
-<td class="success">manufacturedTaxSampleTest1()</td>
-<td class="success">0.002s</td>
+<td class="success">isInputValid()</td>
+<td class="success">isInputValid()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">manufacturedTaxWhenTotalIs25()</td>
+<td class="success">manufacturedTaxWhenTotalIs25()</td>
+<td class="success">0s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">check name appear once</td>
 <td class="success">nameAppearOnlyOneTime()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">check price appear once</td>
 <td class="success">priceAppearOnlyOneTime()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processInputInvalid()</td>
+<td class="success">processInputInvalid()</td>
+<td class="success">0.036s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">processInputValid()</td>
+<td class="success">processInputValid()</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">check quantity appear once</td>
 <td class="success">quantityAppearOnlyOneTime()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">rawTaxSampleTest1()</td>
-<td class="success">rawTaxSampleTest1()</td>
+<td class="success">rawTaxWhenTotalIs34()</td>
+<td class="success">rawTaxWhenTotalIs34()</td>
 <td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
@@ -239,6 +278,30 @@
 </tr>
 </table>
 </div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>Invalid quantity
+Invalid price
+Invalid price
+Invalid name
+Invalid type
+Invalid name
+Invalid type
+Invalid quantity
+Invalid price
+Invalid quantity
+Invalid name
+Invalid type
+Invalid quantity
+Invalid quantity
+Invalid name postion
+Invalid name
+Invalid quantity
+Invalid price
+</pre>
+</span>
+</div>
 </div>
 <div id="footer">
 <p>
@@ -247,7 +310,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.8</a> at 18-May-2021, 2:58:05 PM</p>
+<a href="http://www.gradle.org">Gradle 6.8</a> at 20-May-2021, 11:47:02 AM</p>
 </div>
 </div>
 </body>
