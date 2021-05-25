@@ -1,5 +1,6 @@
 package Assignment2;
 
+import static Assignment2.StudentService.sortOption.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -15,64 +16,64 @@ public class StudentService {
   enum sortOption {
     NAME,
     ROLL_NO,
-    AGE,
+    AGE
+  }
+
+  enum courseOption {
+    A,
+    B,
+    C,
+    D,
+    E,
+    F;
+    public static boolean contains(String test) {
+      for (StudentService.courseOption c : StudentService.courseOption.values()) {
+        if (c.name().equals(test)) return true;
+      }
+      return false;
+    }
   }
 
   StudentService() {
-    studentList = new ArrayList<StudentModel>();
+    studentList = new ArrayList<>();
     isStateChanged = false;
     isAscending = true;
-    currentType = sortOption.NAME;
-    rollNoInRepo = new HashSet<Integer>();
+    currentType = NAME;
+    rollNoInRepo = new HashSet<>();
   }
 
   boolean validInput(String name, String rollNo, String address, String age, String courses) {
-    // check name empty
-    if (name.isEmpty()) {
-      System.out.println("Invalid name");
-      return false;
-    }
-    // check rollNo empty
-    if (rollNo.isEmpty()) {
-      System.out.println("Invalid rollNo");
-      return false;
-    }
+
     // check address empty
     if (address.isEmpty()) {
-      System.out.println("Invalid address");
-      return false;
-    }
-    // check age empty
-    if (age.isEmpty()) {
-      System.out.println("Invalid age");
-      return false;
-    }
-    // check courses empty
-    if (courses.isEmpty()) {
-      System.out.println("Invalid courses");
+      System.out.println("Invalid address format");
       return false;
     }
     // validating name
-    if (!name.matches("^[ A-Za-z]+$")) {
-      System.out.println("Invalid name");
+    if (name.isEmpty() || !name.matches("^[ A-Za-z]+$")) {
+      System.out.println("Invalid name format");
       return false;
     }
     // validating rollNo
-    if (!rollNo.matches("[0-9]*")) {
-      System.out.println("Invalid quantity");
+    if (rollNo.isEmpty() || !rollNo.matches("[0-9]*")) {
+      System.out.println("Invalid quantity format");
       return false;
     }
     // validating age
-    if (!age.matches("[0-9]*")) {
-      System.out.println("Invalid quantity");
+    if (age.isEmpty() || !age.matches("[0-9]*")) {
+      System.out.println("Invalid age format");
+      return false;
+    }
+    if (Integer.parseInt(age) == 0) {
+      System.out.println("Age cannot be zero");
       return false;
     }
     // validating course
     String[] course = courses.split(" ");
-    HashSet<String> uniqueCourses = new HashSet<String>();
+    HashSet<String> uniqueCourses = new HashSet<>();
     for (String i : course) {
-      if (i.length() > 1 || !i.matches("^[ A-F]+$")) {
-        System.out.println("Invalid course type");
+      if (!StudentService.courseOption.contains(i)) {
+        System.out.println("Invalid type");
         return false;
       }
       if (uniqueCourses.contains(i)) { // for repeated course
@@ -81,7 +82,7 @@ public class StudentService {
       }
       uniqueCourses.add(i);
     }
-    if (uniqueCourses.size() < 4) {// Minimum 4 courses required
+    if (courses.isEmpty() || uniqueCourses.size() < 4) {// Minimum 4 courses required
       System.out.println("Minimum 4 courses required");
       return false;
     }
@@ -110,10 +111,13 @@ public class StudentService {
     model.rollNo = Integer.parseInt(rollNo);
     model.address = address;
     model.age = Integer.parseInt(age);
-    String[] SplitCourse = courses.split(" ");
-    int N = SplitCourse.length;
-    model.courses = courses.replaceAll(" ", "").toCharArray();
-    // addStudent(model)
+    String[] course = courses.split(" ");
+    ArrayList<courseOption> extractedCourse = new ArrayList<>();
+    for (String i : course) {
+      extractedCourse.add(StudentService.courseOption.valueOf(i));
+    }
+    model.courses =extractedCourse.toArray(new courseOption[0]);
+    // addStudent
     addStudent(model);
   }
 
@@ -121,20 +125,33 @@ public class StudentService {
     // check if state changed
     if (!isStateChanged) return;
     // if yes then sort
-    if (currentType == sortOption.NAME) {
-      if (isAscending) studentList
-          .sort(Comparator.comparing(StudentModel::getName).thenComparing(StudentModel::getRollNo));
-      else studentList.sort(
-          Comparator.comparing(StudentModel::getName).thenComparing(StudentModel::getRollNo)
-              .reversed());
-    }
-    if (currentType == sortOption.AGE) {
-      if (isAscending) studentList.sort(Comparator.comparing(StudentModel::getAge));
-      else studentList.sort(Comparator.comparing(StudentModel::getAge).reversed());
-    }
-    if (currentType == sortOption.ROLL_NO) {
-      if (isAscending) studentList.sort(Comparator.comparing(StudentModel::getRollNo));
-      else studentList.sort(Comparator.comparing(StudentModel::getRollNo).reversed());
+    switch (currentType) {
+      case NAME: {
+        if (isAscending) {
+          studentList.sort(
+              Comparator.comparing(StudentModel::getName).thenComparing(StudentModel::getRollNo));
+        } else {
+          studentList.sort(
+              Comparator.comparing(StudentModel::getName).thenComparing(StudentModel::getRollNo)
+                  .reversed());
+        }
+      }
+      break;
+      case AGE: {
+        if (isAscending) {
+          studentList.sort(Comparator.comparing(StudentModel::getAge));
+        } else {
+          studentList.sort(Comparator.comparing(StudentModel::getAge).reversed());
+        }
+      }
+      break;
+      case ROLL_NO: {
+        if (isAscending) {
+          studentList.sort(Comparator.comparing(StudentModel::getRollNo));
+        } else {
+          studentList.sort(Comparator.comparing(StudentModel::getRollNo).reversed());
+        }
+      }
     }
     isStateChanged = false;
   }
@@ -182,11 +199,11 @@ public class StudentService {
     // check if stateChanged then sort
     sortStudentList();
     // make repo object and write
+    Repo repo = Repo.getInstance();
     try {
-      Repo repo = new Repo();
       repo.write(studentList);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      e.printStackTrace();
     }
     // save studentList in repo
   }
@@ -194,7 +211,7 @@ public class StudentService {
   void getState() {
     try {
       // make repo object
-      Repo repo = new Repo();
+      Repo repo = Repo.getInstance();
       // get studentList from repo
       studentList = repo.read();
       // filling rollNo from repo

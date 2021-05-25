@@ -1,23 +1,31 @@
 package Assignment2;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Repo {
 
-  FileOutputStream fos;
-  FileInputStream fis;
+  final String FILE_NAME = "DB.txt";
+  private static Repo single_instance = null;
 
-  Repo() {
+  private Repo() {}
+
+  public static Repo getInstance() {
+    if (single_instance == null) {
+      try {
+        single_instance = new Repo();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    return single_instance;
   }
 
   void write(ArrayList<StudentModel> studentList) throws Exception {
-    fos = new FileOutputStream(new File("DB.txt"));
+    FileOutputStream fos = new FileOutputStream(FILE_NAME);
     ObjectOutputStream oos = new ObjectOutputStream(fos);
     oos.writeObject(studentList);
     System.out.println("data written");
@@ -25,14 +33,8 @@ public class Repo {
 
   @SuppressWarnings("unchecked")
   ArrayList<StudentModel> read() throws Exception {
-    fis = new FileInputStream(new File("DB.txt"));
+    FileInputStream fis = new FileInputStream(FILE_NAME);
     ObjectInputStream ois = new ObjectInputStream(fis);
-    return (java.util.ArrayList<StudentModel>) ois.readObject();
-  }
-
-  protected void finalize() throws IOException {
-    //resources to be close
-    fos.close();
-    fis.close();
+    return (ArrayList<StudentModel>) ois.readObject();
   }
 }

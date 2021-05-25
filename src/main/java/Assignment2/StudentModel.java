@@ -7,7 +7,7 @@ public class StudentModel implements Serializable {
 
   String name, address;
   int age, rollNo;
-  char[] courses;
+  StudentService.courseOption[] courses;
 
   // getter methods
 
@@ -41,7 +41,7 @@ public class StudentModel implements Serializable {
     this.rollNo = rollNo;
   }
 
-  public void setCourses(final char[] courses) {
+  public void setCourses(final StudentService.courseOption[] courses) {
     this.courses = courses;
   }
   public void print()
