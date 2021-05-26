@@ -56,7 +56,7 @@ public class StudentService {
     }
     // validating rollNo
     if (rollNo.isEmpty() || !rollNo.matches("[0-9]*")) {
-      System.out.println("Invalid quantity format");
+      System.out.println("Invalid rollNo format");
       return false;
     }
     // validating age
