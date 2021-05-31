@@ -1,4 +1,4 @@
-package Assignment3;
+package Assignment_3;
 
 import static org.junit.jupiter.api.Assertions.*;
 
