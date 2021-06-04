@@ -39,11 +39,12 @@ public class AssignmentService {
   // method to calculate total cost.
   double calculateCost() {
     double totalCost = model.getPrice() * model.getQuantity();
-    if (model.getType().equals(ItemModel.types.RAW)) totalCost += rawTax(totalCost);
+    double tax = 0;
+    if (model.getType().equals(ItemModel.types.RAW)) tax += rawTax(totalCost);
     if (model.getType().equals(ItemModel.types.MANUFACTURED))
-      totalCost += manufacturedTax(totalCost);
-    if (model.getType().equals(ItemModel.types.IMPORTED)) totalCost += importedTax(totalCost);
-    return totalCost;
+      tax += manufacturedTax(totalCost);
+    if (model.getType().equals(ItemModel.types.IMPORTED)) tax += importedTax(totalCost);
+    return totalCost+tax;
   }
 
   String extractWord(String inputString, int pos) {

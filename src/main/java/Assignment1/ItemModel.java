@@ -5,7 +5,7 @@ public class ItemModel {
   // all member variables
   String name;
   ItemModel.types type;
-  double price;
+  double price,tax;
   int quantity;
 
   enum types {
@@ -22,7 +22,11 @@ public class ItemModel {
   }
 
   // getter methods
+  public String getName() {return name; }
+
   public double getPrice() {return price; }
+
+  public double getTax() {return tax; }
 
   public int getQuantity() { return quantity; }
 
@@ -32,6 +36,8 @@ public class ItemModel {
   public void setName(String name) { this.name = name; }
 
   public void setPrice(double price) { this.price = price; }
+
+  public void setTax(double tax) { this.tax = tax; }
 
   public void setQuantity(int quantity) { this.quantity = quantity; }
 

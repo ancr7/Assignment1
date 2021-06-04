@@ -1,4 +1,4 @@
-package Assignment_3;
+package Assignment3;
 
 public class FamilyTreeModel {
 
