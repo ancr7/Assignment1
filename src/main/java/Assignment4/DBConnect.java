@@ -19,7 +19,7 @@ public class DBConnect {
       info.put("user", "admin");
       info.put("password", "Password@123");
 
-//      Class.forName("mysql-connector-java-8.0.25");
+      Class.forName("mysql-connector-java-8.0.25");
 //      Class.forName("com.mysql.jdbc.Driver").newInstance();
       connection = DriverManager.getConnection(url,info);
 //      Connection connection = DriverManager

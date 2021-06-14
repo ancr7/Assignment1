@@ -204,7 +204,7 @@ class FamilyTreeServiceTest {
       familyTreeService.validateEdgeNodeId(1);
       assert (false);
     } catch (Exception e) {
-      assertTrue(e.getMessage().contains("Input Node not found."));
+      assertTrue(e.getMessage().contains("Invalid choice"));
     }
   }
 }
