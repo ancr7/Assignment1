@@ -44,6 +44,43 @@ public class Constants {
 
   public final static String NO_DATA = "No data to display.";
 
-  public final static String SAVE_CHANGES = "Do you want to save the changes? (y/n";
+  public final static String SAVE_CHANGES = "Do you want to save the changes? (y/n)";
 
+  public final static String ALPHABET_REGEX = "^[ A-Za-z]+$";
+
+  public final static String NUMBER_REGEX = "[0-9]*";
+
+  public final static String ONE_TO_THREE_REGEX = "[1-3]";
+
+  public final static String ONE_TO_TWO_REGEX = "[1-2]";
+
+  public final static String ONE_TO_FIVE_REGEX = "[1-5]";
+
+  public final static String SINGLE_WHITESPACE = " ";
+
+  public final static char Y = 'y';
+
+  public final static char N = 'n';
+
+  public final static String INVALID_NAME = "Invalid name";
+
+  public final static String AGE_CANNOT_BE_ZERO = "Age cannot be zero";
+
+  public final static String INPUT_EMPTY = "Input field Empty";
+
+  public final static String INVALID_COURSES = "Invalid courses";
+
+  public final static String COURSES_CANNOT_BE_REPEATED = "Course can't be repeated";
+
+  public final static String MINIMUM_FOUR_COURSE = "Minimum 4 courses required";
+
+  public final static String INVALID_NUMBER_FORMAT = "Invalid number format";
+
+  public final static String ROLL_NO_ALREADY_EXIST = "Roll no Already exist in Database";
+
+  public final static String ROLLNO_NOT_FOUND = "Roll no not found";
+
+  public final static String ERROR_WRITING_DATABASE = "Error writing Database";
+
+  public final static String ERROR_FETCHING_DATABASE = "Error fetching Database";
 }

@@ -2,20 +2,17 @@ package assignment2;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import assignment2.enums.CourseOption;
+import assignment2.enums.SortType;
 import assignment2.exceptions.InvalidException;
 import assignment2.sort_package.SortByAgeImpl;
 import assignment2.sort_package.SortByNameImpl;
 import assignment2.sort_package.SortByRollNoImpl;
 import assignment2.utils.Constants;
-import assignment2.utils.CourseOption;
-import assignment2.utils.InputValidators.SortingChoiceValidator;
-import assignment2.utils.InputValidators.SortingOrderValidator;
-import assignment2.utils.InputValidators.StartScreenChoosenOptionValidate;
-import assignment2.utils.InputValidators.YesOrNoValidate;
 import assignment2.utils.ValidatorUtil;
+import assignment2.utils.inputValidators.CustomValidator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -178,8 +175,8 @@ class StudentServiceTest {
     model.setAddress("x y z");
     model.setAge(21);
     model.setRollNo(12);
-    model.setCourses(new CourseOption.Option[]{CourseOption.Option.A, CourseOption.Option.B,
-        CourseOption.Option.C, CourseOption.Option.E});
+    model.setCourses(
+        new CourseOption[]{CourseOption.A, CourseOption.B, CourseOption.C, CourseOption.E});
 
     StudentService studentService = null;
     try {
@@ -195,8 +192,8 @@ class StudentServiceTest {
     assertEquals("x y z", studentService.studentList.get(previousSize).address);
     assertEquals(21, studentService.studentList.get(previousSize).age);
     assertEquals(12, studentService.studentList.get(previousSize).rollNo);
-    assertArrayEquals(new CourseOption.Option[]{CourseOption.Option.A, CourseOption.Option.B,
-            CourseOption.Option.C, CourseOption.Option.E},
+    assertArrayEquals(
+        new CourseOption[]{CourseOption.A, CourseOption.B, CourseOption.C, CourseOption.E},
         studentService.studentList.get(previousSize).courses);
     assertTrue(studentService.isStateChanged);
   }
@@ -206,8 +203,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("AAA", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByNameImpl(true);
-      studentService.isAscending = true;
+      studentService.appliedSort = new SortByNameImpl(SortType.ASCENDING);
+      studentService.appliedSortType = SortType.ASCENDING;
       studentService.sortStudentList();
       assertEquals("AAA", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -220,7 +217,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByNameImpl(false);
+      studentService.appliedSort = new SortByNameImpl(SortType.DESCENDING);
+      studentService.appliedSortType = SortType.DESCENDING;
       studentService.sortStudentList();
       assertEquals("def", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -233,8 +231,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByAgeImpl(true);
-      studentService.isAscending = true;
+      studentService.appliedSort = new SortByAgeImpl(SortType.ASCENDING);
+      studentService.appliedSortType = SortType.ASCENDING;
       studentService.sortStudentList();
       assertEquals("def", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -247,8 +245,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByAgeImpl(false);
-      studentService.isAscending = false;
+      studentService.appliedSort = new SortByAgeImpl(SortType.DESCENDING);
+      studentService.appliedSortType = SortType.DESCENDING;
       studentService.sortStudentList();
       assertEquals("abc", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -259,12 +257,11 @@ class StudentServiceTest {
   @Test
   void checkSortStudentListRollNoAscending() {
     try {
-      studentService.processInput("def", "13", "x y z", "13", "B C D E");
+//      studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByRollNoImpl(true);
-      studentService.isAscending = true;
-      studentService.sortStudentList();
-      assertEquals("abc", studentService.studentList.get(0).name);
+      studentService.appliedSort = new SortByRollNoImpl(SortType.DESCENDING);
+//      studentService.sortStudentList();
+//      assertEquals("abc", studentService.studentList.get(0).name);
     } catch (Exception e) {
       assert false;
     }
@@ -275,8 +272,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByRollNoImpl(false);
-      studentService.isAscending = false;
+      studentService.appliedSort = new SortByRollNoImpl(SortType.DESCENDING);
+      studentService.appliedSortType = SortType.DESCENDING;
       studentService.sortStudentList();
       assertEquals("Ayush Nishad", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -289,8 +286,8 @@ class StudentServiceTest {
     try {
       studentService.processInput("def", "13", "x y z", "13", "B C D E");
       studentService.processInput("abc", "12", "x y z", "21", "A B C D");
-      studentService.currentType = new SortByRollNoImpl(false);
-      studentService.isAscending = false;
+      studentService.appliedSort = new SortByRollNoImpl(SortType.DESCENDING);
+      studentService.appliedSortType = SortType.DESCENDING;
       studentService.showData();
 //      assertEquals("Ayush Nishad", studentService.studentList.get(0).name);
     } catch (Exception e) {
@@ -301,7 +298,7 @@ class StudentServiceTest {
 
   @Test
   void checkSortPreference() {
-    studentService.sortPreference(new SortByRollNoImpl(true), true);
+    studentService.sortPreference(new SortByRollNoImpl(SortType.DESCENDING), SortType.DESCENDING);
     assertTrue(studentService.isStateChanged);
   }
 
@@ -358,8 +355,8 @@ class StudentServiceTest {
   @Test
   void checkSortingChoiceValidator() {
     try {
-      SortingChoiceValidator.isValid("2");
-      SortingChoiceValidator.isValid("");
+      CustomValidator.isSortingChoiceValid(("2"));
+      CustomValidator.isSortingChoiceValid((""));
       assert false;
     } catch (Exception e) {
       assertEquals(Constants.INVALID_CHOICE, e.getMessage());
@@ -369,27 +366,28 @@ class StudentServiceTest {
   @Test
   void checkSortingOrderValidator() {
     try {
-      SortingOrderValidator.isValid("2");
-      SortingOrderValidator.isValid("");
+      CustomValidator.isSortingOrderValid("2");
+      CustomValidator.isSortingOrderValid("");
       assert false;
     } catch (Exception e) {
       assertEquals(Constants.INVALID_CHOICE, e.getMessage());
     }
   }
+
   @Test
-  void checkSaveState ()
-  {
+  void checkSaveState() {
     try {
       studentService.saveState();
     } catch (Exception e) {
       assert false;
     }
   }
+
   @Test
   void checkStartScreenChoosenOptionValidator() {
     try {
-      StartScreenChoosenOptionValidate.isValid("2");
-      StartScreenChoosenOptionValidate.isValid("");
+      CustomValidator.isStartScreenChosenOptionValid("2");
+      CustomValidator.isStartScreenChosenOptionValid("");
       assert false;
     } catch (Exception e) {
       assertEquals(Constants.INVALID_CHOICE, e.getMessage());
@@ -399,9 +397,9 @@ class StudentServiceTest {
   @Test
   void checkYesOrNoValidate() {
     try {
-      YesOrNoValidate.isValid("y");
-      YesOrNoValidate.isValid("n");
-      YesOrNoValidate.isValid("Yes");
+      CustomValidator.isYesOrNoValid("y");
+      CustomValidator.isYesOrNoValid("n");
+      CustomValidator.isYesOrNoValid("Yes");
       assert false;
     } catch (Exception e) {
       assertEquals(Constants.INVALID_INPUT, e.getMessage());
@@ -411,11 +409,15 @@ class StudentServiceTest {
   @Test
   void checkGetSortFactoryWhenInputIs1() {
     try {
-      assertEquals(SortByNameImpl.class, GetSortFactory.getFactory(1, true).getClass());
-      assertEquals(SortByNameImpl.class, GetSortFactory.getFactory(1, false).getClass());
+      assertEquals(SortByNameImpl.class,
+          GetSortFactory.getFactory(1, SortType.ASCENDING).getClass());
+      assertEquals(SortByNameImpl.class,
+          GetSortFactory.getFactory(1, SortType.DESCENDING).getClass());
 
-      assertTrue(GetSortFactory.getFactory(1, true).getIsAscending());
-      assertFalse(GetSortFactory.getFactory(1, false).getIsAscending());
+      assertEquals(SortType.ASCENDING,
+          GetSortFactory.getFactory(1, SortType.ASCENDING).getSortType());
+      assertEquals(SortType.DESCENDING,
+          GetSortFactory.getFactory(1, SortType.DESCENDING).getSortType());
 
     } catch (Exception e) {
       assert false;
@@ -425,11 +427,15 @@ class StudentServiceTest {
   @Test
   void checkGetSortFactoryWhenInputIs2() {
     try {
-      assertEquals(SortByAgeImpl.class, GetSortFactory.getFactory(2, true).getClass());
-      assertEquals(SortByAgeImpl.class, GetSortFactory.getFactory(2, false).getClass());
+      assertEquals(SortByAgeImpl.class,
+          GetSortFactory.getFactory(2, SortType.ASCENDING).getClass());
+      assertEquals(SortByAgeImpl.class,
+          GetSortFactory.getFactory(2, SortType.DESCENDING).getClass());
 
-      assertTrue(GetSortFactory.getFactory(2, true).getIsAscending());
-      assertFalse(GetSortFactory.getFactory(2, false).getIsAscending());
+      assertEquals(SortType.ASCENDING,
+          GetSortFactory.getFactory(2, SortType.ASCENDING).getSortType());
+      assertEquals(SortType.DESCENDING,
+          GetSortFactory.getFactory(2, SortType.DESCENDING).getSortType());
 
     } catch (Exception e) {
       assert false;
@@ -439,11 +445,15 @@ class StudentServiceTest {
   @Test
   void checkGetSortFactoryWhenInputIs3() {
     try {
-      assertEquals(SortByRollNoImpl.class, GetSortFactory.getFactory(3, true).getClass());
-      assertEquals(SortByRollNoImpl.class, GetSortFactory.getFactory(3, false).getClass());
+      assertEquals(SortByRollNoImpl.class,
+          GetSortFactory.getFactory(3, SortType.ASCENDING).getClass());
+      assertEquals(SortByRollNoImpl.class,
+          GetSortFactory.getFactory(3, SortType.DESCENDING).getClass());
 
-      assertTrue(GetSortFactory.getFactory(3, true).getIsAscending());
-      assertFalse(GetSortFactory.getFactory(3, false).getIsAscending());
+      assertEquals(SortType.ASCENDING,
+          GetSortFactory.getFactory(3, SortType.ASCENDING).getSortType());
+      assertEquals(SortType.DESCENDING,
+          GetSortFactory.getFactory(3, SortType.DESCENDING).getSortType());
 
     } catch (Exception e) {
       assert false;

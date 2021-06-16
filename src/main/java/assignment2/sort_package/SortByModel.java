@@ -1,23 +1,24 @@
 package assignment2.sort_package;
 
 import assignment2.StudentModel;
+import assignment2.enums.SortType;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class SortByModel {
 
-  boolean isAscending;
+  SortType sortType;
 
-  SortByModel(Boolean isAscending) {this.isAscending = isAscending;}
+  SortByModel(final SortType sortType) {this.sortType = sortType;}
 
-  public abstract void sort(ArrayList<StudentModel> studentList);
+  public abstract void sort(final ArrayList<StudentModel> studentList);
 
-  public void reverse(ArrayList<StudentModel> studentList) {
+  public void reverse(final ArrayList<StudentModel> studentList) {
     Collections.reverse(studentList);
   }
 
-  public boolean getIsAscending() {
-    return this.isAscending;
+  public SortType getSortType() {
+    return this.sortType;
   }
 
 }

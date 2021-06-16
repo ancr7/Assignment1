@@ -1,6 +1,6 @@
 package assignment2;
 
-import assignment2.utils.CourseOption;
+import assignment2.enums.CourseOption;
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ public class StudentModel implements Serializable {
 
   String name, address;
   int age, rollNo;
-  CourseOption.Option[] courses;
+  CourseOption[] courses;
 
   // getter methods
 
@@ -40,7 +40,7 @@ public class StudentModel implements Serializable {
     this.rollNo = rollNo;
   }
 
-  public void setCourses(final CourseOption.Option[] courses) {
+  public void setCourses(final CourseOption[] courses) {
     this.courses = courses;
   }
 

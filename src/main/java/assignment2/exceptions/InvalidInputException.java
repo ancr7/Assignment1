@@ -1,8 +1,8 @@
 package assignment2.exceptions;
 
 public class InvalidInputException extends InvalidException {
-
-  public InvalidInputException(String errorMessage) {
+  // Error when input is wrong
+  public InvalidInputException(final String errorMessage) {
     super(errorMessage);
   }
 }

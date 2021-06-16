@@ -1,10 +1,4 @@
-assignment1/AssignmentServiceTest.java
- assignment1.AssignmentServiceTest
-assignment2/StudentServiceTest.java
- assignment2.StudentServiceTest
-Assignment4/ServiceTest.java
- Assignment4.ServiceTest
-Assignment_3/FamilyTreeServiceTest.java
- Assignment_3.FamilyTreeServiceTest
 assignment3/FamilyTreeServiceTest.java
  assignment3.FamilyTreeServiceTest
+assignment2/StudentServiceTest.java
+ assignment2.StudentServiceTest

@@ -1,8 +1,8 @@
 package assignment2.exceptions;
 
 public class InvalidFormatException extends InvalidException {
-
-  public InvalidFormatException(String errorMessage) {
+  // Error when format is wrong
+  public InvalidFormatException(final String errorMessage) {
     super(errorMessage + " format");
   }
 

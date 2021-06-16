@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import assignment2.GetSortFactory;
+import assignment2.enums.SortType;
 import assignment2.sort_package.SortByModel;
 import assignment3.utils.validators.NumberValidator;
 import assignment3.utils.validators.SingleDigitNumberValidator;
@@ -265,7 +266,7 @@ class FamilyTreeServiceTest {
   @Test
   void checkGetSortFactoryInvalidChoice() {
     try {
-      SortByModel model = GetSortFactory.getFactory(4,true);
+      SortByModel model = GetSortFactory.getFactory(4, SortType.ASCENDING);
       assert false;
     } catch (Exception e) {
       assertEquals("Invalid choice",e.getMessage());

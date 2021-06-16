@@ -1,13 +1,14 @@
 package assignment2;
 
+import assignment2.enums.SortType;
 import assignment2.exceptions.InvalidException;
 import assignment2.exceptions.InvalidInputException;
 import assignment2.sort_package.SortByModel;
 import assignment2.sort_package.SortByNameImpl;
-import assignment2.utils.InputOutputUtil;
-import assignment2.utils.InputValidators.RollNoValidator;
+import assignment2.utils.Constants;
 import assignment2.utils.ProcessInputUtil;
 import assignment2.utils.ValidatorUtil;
+import assignment2.utils.inputValidators.NumberValidator;
 import repo.Repo;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,16 +17,16 @@ public class StudentService {
 
   public ArrayList<StudentModel> studentList;
   public boolean isStateChanged;
-  SortByModel currentType;
-  boolean isAscending;
+  SortByModel appliedSort;
+  SortType appliedSortType;
   HashSet<Integer> rollNoInRepo;
 
 
   public StudentService() throws InvalidException {
     studentList = new ArrayList<>();
     isStateChanged = false;
-    isAscending = true;
-    currentType = new SortByNameImpl(true);
+    appliedSort = new SortByNameImpl(SortType.ASCENDING);
+    appliedSortType = SortType.ASCENDING;
     rollNoInRepo = new HashSet<>();
     getState();// get data from repo
   }
@@ -39,33 +40,36 @@ public class StudentService {
     rollNoInRepo.add(model.rollNo);
   }
 
-  public void processInput(String name, String rollNo, String address, String age, String courses)
-      throws InvalidException {
+  public void processInput(final String name, final String rollNo, final String address,
+                           final String age, final String courses) throws InvalidException {
     // check valid
     ValidatorUtil.validInput(name, rollNo, address, age, courses);
 
     if (rollNoInRepo.contains(Integer.parseInt(rollNo))) {
-      throw new InvalidInputException("Roll no Already exist in Database");
+      throw new InvalidInputException(Constants.ROLL_NO_ALREADY_EXIST);
     }
     // make model object
-    StudentModel model = ProcessInputUtil.ProcessInput(name, rollNo, address, age, courses);
+    StudentModel model = ProcessInputUtil.processInput(name, rollNo, address, age, courses);
     addStudent(model);
   }
 
   void sortStudentList() {
+
     // check if state changed
     if (!isStateChanged) return;
 
-    currentType.sort(studentList);
+    // sort the list
+    appliedSort.sort(studentList);
 
     isStateChanged = false;
   }
 
-  public void sortPreference(SortByModel sortType, boolean isAscending) {
+  public void sortPreference(final SortByModel sortType, final SortType appliedSortType) {
     // same then nothing
-    if (sortType.getClass() == currentType.getClass() && isAscending == this.isAscending) return;
-    currentType = sortType;
-    this.isAscending = isAscending;
+    if (sortType.getClass() == appliedSort.getClass() && appliedSortType == this.appliedSortType) return;
+
+    appliedSort = sortType;
+    this.appliedSortType = appliedSortType;
     isStateChanged = true;
   }
 
@@ -78,9 +82,9 @@ public class StudentService {
     }
   }
 
-  public void deleteStudent(String rollNo) throws InvalidException {
+  public void deleteStudent(final String rollNo) throws InvalidException {
     // validating input
-    RollNoValidator.isRollNoValid(rollNo);
+    NumberValidator.isValid(rollNo);
     // delete data from studentList
     for (int i = 0; i < studentList.size(); i++) {
       if (studentList.get(i).rollNo == Integer.parseInt(rollNo)) {
@@ -90,7 +94,7 @@ public class StudentService {
         return;
       }
     }
-    throw new InvalidInputException("Roll no not found");
+    throw new InvalidInputException(Constants.ROLLNO_NOT_FOUND);
   }
 
 
@@ -102,7 +106,7 @@ public class StudentService {
     try {
       repo.write(studentList);
     } catch (Exception e) {
-      throw new InvalidInputException("Error writing Database");
+      throw new InvalidInputException(Constants.ERROR_WRITING_DATABASE);
     }
     // save studentList in repo
   }
@@ -118,17 +122,7 @@ public class StudentService {
         rollNoInRepo.add(model.rollNo);
       }
     } catch (Exception e) {
-      throw new InvalidInputException("Error fetching Database");
+      throw new InvalidInputException(Constants.ERROR_FETCHING_DATABASE);
     }
   }
-
-
 }
-/*
- * sort ✅
- * controller ✅
- * enum ✅
- * exception ✅
- * name validator ✅
- * parse/IO ✅
- */

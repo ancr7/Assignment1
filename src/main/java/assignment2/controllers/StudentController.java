@@ -1,33 +1,36 @@
 package assignment2.controllers;
 
-import assignment3.exceptions.InvalidInputException;
 import assignment2.StudentService;
 import assignment2.exceptions.InvalidException;
 import assignment2.utils.ChangeSortingPreference;
 import assignment2.utils.Constants;
-import assignment2.utils.InputOutputUtil;
-import assignment2.utils.InputValidators.SortingChoiceValidator;
-import assignment2.utils.InputValidators.SortingOrderValidator;
-import assignment2.utils.InputValidators.StartScreenChoosenOptionValidate;
+import assignment2.utils.IOUtils;
 import assignment2.utils.ShowOptions;
+import assignment2.utils.inputValidators.CustomValidator;
+import assignment3.exceptions.InvalidInputException;
 
 public class StudentController {
 
-  public static void saveAndExit(StudentService studentService) throws Exception {
+  public static void saveAndExit(final StudentService studentService) throws Exception {
+    // save and Exir
     if (studentService.isStateChanged) {
-      char option = InputOutputUtil.getSaveAndExitInput();
-      if (option == 'y') { studentService.saveState(); }
+      char option = IOUtils.getSaveAndExitInput();
+      if (option == Constants.Y) { // if user presses Y
+        studentService.saveState();
+      }
     }
   }
 
-  static void addUserDetail(StudentService studentService) throws Exception {
-    ShowOptions.addStudentDetailOption(studentService);
+  static void addUserDetail(final StudentService studentService) throws Exception {
+    // add user to list
+    ShowOptions.addStudentDetail(studentService);
   }
 
-  public static void validatePreferenceInput(String SortChosenOption, String OrderString)
-      throws InvalidException {
-    SortingChoiceValidator.isValid(SortChosenOption);
-    SortingOrderValidator.isValid(OrderString);
+  public static void validatePreferenceInput(final String sortChosenOption,
+                                             final String orderString) throws InvalidException {
+    // sort according to input
+    CustomValidator.isSortingChoiceValid(sortChosenOption);
+    CustomValidator.isSortingOrderValid(orderString);
   }
 
   public static void main(String[] args) {
@@ -36,10 +39,10 @@ public class StudentController {
       StudentService studentService = new StudentService();
 
       while (!ProgramEnd) { // loop till user select exit
-        ShowOptions.mainMenuOption();
-        String ChosenOption = InputOutputUtil.input();
+        ShowOptions.showMainMenu();
+        String ChosenOption = IOUtils.getInput();
         // validating input
-        StartScreenChoosenOptionValidate.isValid((ChosenOption));
+        CustomValidator.isStartScreenChosenOptionValid(ChosenOption);
         int choice = Integer.parseInt(ChosenOption);
         switch (choice) {
           case 1: { // add data
@@ -52,8 +55,8 @@ public class StudentController {
             break;
           }
           case 3: { // delete data by rollNo
-            InputOutputUtil.output(Constants.ENTER_ROLLNO);
-            String rollNo = InputOutputUtil.input();
+            IOUtils.getOutput(Constants.ENTER_ROLLNO);
+            String rollNo = IOUtils.getInput();
             studentService.deleteStudent(rollNo);
             break;
           }
