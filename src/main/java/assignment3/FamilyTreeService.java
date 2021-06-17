@@ -1,7 +1,7 @@
 package assignment3;
-
+import assignment3.exceptions.InvalidException;
 import assignment3.utils.CheckCycleInGraph;
-import assignment2.exceptions.InvalidException;
+import assignment3.utils.Constants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,103 +21,103 @@ public class FamilyTreeService {
   }
 
   // validating Node Exist or not
-  void validateEdgeNodeId(int NodeId) {
-    if (!edgeList.containsKey(NodeId)) throw new RuntimeException("Input Node not found.");
+  void validateEdgeNodeId(int nodeId) throws InvalidException {
+    if (!edgeList.containsKey(nodeId)) throw new InvalidException(Constants.INPUT_NODE_NOT_FOUND);
   }
 
   // validating Parent Exist or not
-  void validateEdgeParentId(int ParentId) {
-    if (!edgeList.containsKey(ParentId)) throw new RuntimeException("Parent Node not found.");
+  void validateEdgeParentId(int parentId) throws InvalidException {
+    if (!edgeList.containsKey(parentId))
+      throw new InvalidException(Constants.PARENT_NODE_NOT_FOUND);
   }
 
-  void validateReverseEdgeNodeId(int NodeId) {
-    if (!reverseEdge.containsKey(NodeId)) throw new RuntimeException("Input Node not found.");
+  void validateReverseEdgeNodeId(int nodeId) throws InvalidException {
+    if (!reverseEdge.containsKey(nodeId))
+      throw new InvalidException(Constants.INPUT_NODE_NOT_FOUND);
   }
 
   // method to get immediate parent
-  List<Integer> getImmediateParent(int NodeId) {
-    validateReverseEdgeNodeId(NodeId);
-    var parentSet = reverseEdge.get(NodeId);
+  List<Integer> getImmediateParent(int nodeId) throws InvalidException {
+    validateReverseEdgeNodeId(nodeId);
+    var parentSet = reverseEdge.get(nodeId);
     return new ArrayList<>(parentSet);
   }
 
   // method to get immediate childrens
-  List<Integer> getImmediateChildren(int NodeId) {
-    validateEdgeNodeId(NodeId);
-    var childrenSet = edgeList.get(NodeId);
+  List<Integer> getImmediateChildren(int nodeId) throws InvalidException {
+    validateEdgeNodeId(nodeId);
+    var childrenSet = edgeList.get(nodeId);
     return new ArrayList<>(childrenSet);
   }
 
   // helper method for finding Ancestors/Descendants
-  void getAncestorsOrDescendantsHelper(int NodeId, boolean isDescendant,
-                                       ArrayList<Integer> NodeList) {
-    for (var value : (isDescendant ? edgeList : reverseEdge).get(NodeId)) {
-      NodeList.add(value);
-      getAncestorsOrDescendantsHelper(value, isDescendant, NodeList);
+  void getAncestorsOrDescendantsHelper(int nodeId, boolean isDescendant,
+                                       ArrayList<Integer> nodeList) {
+    for (var value : (isDescendant ? edgeList : reverseEdge).get(nodeId)) {
+      nodeList.add(value);
+      getAncestorsOrDescendantsHelper(value, isDescendant, nodeList);
     }
   }
 
   // method to get all Ancestors
-  List<Integer> getAncestors(int NodeId) {
-    validateEdgeNodeId(NodeId);
+  List<Integer> getAncestors(int nodeId) throws InvalidException {
+    validateEdgeNodeId(nodeId);
     ArrayList<Integer> AncestorsList = new ArrayList<>();
-    getAncestorsOrDescendantsHelper(NodeId, false, AncestorsList);
+    getAncestorsOrDescendantsHelper(nodeId, false, AncestorsList);
     return AncestorsList;
   }
 
   // method to get all Descendants
-  List<Integer> getDescendants(int NodeId) {
-    validateEdgeNodeId(NodeId);
+  List<Integer> getDescendants(int nodeId) throws InvalidException {
+    validateEdgeNodeId(nodeId);
     ArrayList<Integer> DescendantsList = new ArrayList<>();
-    getAncestorsOrDescendantsHelper(NodeId, true, DescendantsList);
+    getAncestorsOrDescendantsHelper(nodeId, true, DescendantsList);
     return DescendantsList;
   }
 
-  // Topological sort to check graph has cyclic dependency or not.
-
 
   // method to add edge
-  void addEdge(int ParentId, int NodeId) throws InvalidException{
-    validateEdgeNodeId(NodeId);
-    validateEdgeParentId(ParentId);
-    edgeList.get(ParentId).add(NodeId);
-    reverseEdge.get(NodeId).add(ParentId);
+  void addEdge(int parentId, int nodeId) throws InvalidException {
+    validateEdgeNodeId(nodeId);
+    validateEdgeParentId(parentId);
+    edgeList.get(parentId).add(nodeId);
+    reverseEdge.get(nodeId).add(parentId);
     if (CheckCycleInGraph.hasCycle(edgeList)) {
-      deleteEdge(ParentId, NodeId);
-      throw new InvalidException("Adding this edge will create Cycle");
+      deleteEdge(parentId, nodeId);
+      throw new InvalidException(Constants.ADDING_EDGE_MAKES_CYCLE);
     }
   }
 
   // method to delete edge
-  void deleteEdge(int ParentId, int NodeId) {
-    validateEdgeParentId(ParentId);
-    validateEdgeNodeId(NodeId);
-    if (!edgeList.get(ParentId).contains(NodeId)) {
-      throw new RuntimeException("No Edge Found");
+  void deleteEdge(int parentId, int nodeId) throws InvalidException {
+    validateEdgeParentId(parentId);
+    validateEdgeNodeId(nodeId);
+    if (!edgeList.get(parentId).contains(nodeId)) {
+      throw new InvalidException(Constants.NO_EDGE_FOUND);
     }
-    edgeList.get(ParentId).remove(NodeId);
-    reverseEdge.get(NodeId).remove(ParentId);
+    edgeList.get(parentId).remove(nodeId);
+    reverseEdge.get(nodeId).remove(parentId);
   }
 
   // method to delete a node
-  void deleteNode(int NodeId) {
-    validateEdgeNodeId(NodeId);
-    edgeList.remove(NodeId);
+  void deleteNode(int nodeId) throws InvalidException {
+    validateEdgeNodeId(nodeId);
+    edgeList.remove(nodeId);
     for (HashSet<Integer> value : reverseEdge.values()) {
-      value.remove(NodeId);
+      value.remove(nodeId);
     }
   }
 
   // method to add a node
-  void addNode(int NodeId, String NodeName, String AdditionalInfo) {
-    if (edgeList.containsKey(NodeId) || reverseEdge.containsKey(NodeId))
-      throw new RuntimeException("Node already present.");
+  void addNode(int nodeId, String nodeName, String additionalInfo) throws InvalidException {
+    if (edgeList.containsKey(nodeId) || reverseEdge.containsKey(nodeId))
+      throw new InvalidException(Constants.NODE_ALREADY_PRESENT);
     FamilyTreeModel model = new FamilyTreeModel();
-    model.setNodeId(NodeId);
-    model.setNodeName(NodeName);
-    model.setAdditionalInfo(AdditionalInfo);
-    idToObject.put(NodeId, model);
-    edgeList.put(NodeId, new HashSet<>());
-    reverseEdge.put(NodeId, new HashSet<>());
+    model.setNodeId(nodeId);
+    model.setNodeName(nodeName);
+    model.setAdditionalInfo(additionalInfo);
+    idToObject.put(nodeId, model);
+    edgeList.put(nodeId, new HashSet<>());
+    reverseEdge.put(nodeId, new HashSet<>());
   }
 }

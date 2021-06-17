@@ -1,6 +1,6 @@
 package assignment3;
 
-import assignment3.utils.InputOutputUtil;
+import assignment3.utils.IOUtils;
 import assignment3.utils.ShowOptions;
 import assignment3.utils.validators.NumberValidator;
 import assignment3.utils.validators.SingleDigitNumberValidator;
@@ -14,63 +14,63 @@ public class FamilyTreeControllers {
     try {
       while (!exit) {
         ShowOptions.printStartOptions();
-        String ChoiceString = InputOutputUtil.input();
+        String ChoiceString = IOUtils.input();
         // validating Menu option choice
         SingleDigitNumberValidator.isValid(ChoiceString);
         int choice = Integer.parseInt(ChoiceString);
         switch (choice) {
           case 1: {
-            String NodeId = InputOutputUtil.getNodeId();
-            NumberValidator.isValid(NodeId);
-            System.out.println(familyTreeService.getImmediateParent(Integer.parseInt(NodeId)));
+            String nodeId = IOUtils.getNodeId();
+            NumberValidator.isValid(nodeId);
+            IOUtils.getOutput(familyTreeService.getImmediateParent(Integer.parseInt(nodeId)));
             break;
           }
           case 2: {
-            String NodeId = InputOutputUtil.getNodeId();
-            NumberValidator.isValid(NodeId);
-            System.out.println(familyTreeService.getImmediateChildren(Integer.parseInt(NodeId)));
+            String nodeId = IOUtils.getNodeId();
+            NumberValidator.isValid(nodeId);
+            IOUtils.getOutput(familyTreeService.getImmediateChildren(Integer.parseInt(nodeId)));
             break;
           }
           case 3: {
-            String NodeId = InputOutputUtil.getNodeId();
-            NumberValidator.isValid(NodeId);
-            System.out.println(familyTreeService.getAncestors(Integer.parseInt(NodeId)));
+            String nodeId = IOUtils.getNodeId();
+            NumberValidator.isValid(nodeId);
+            IOUtils.getOutput(familyTreeService.getAncestors(Integer.parseInt(nodeId)));
             break;
           }
           case 4: {
-            String NodeId = InputOutputUtil.getNodeId();
-            NumberValidator.isValid(NodeId);
-            System.out.println(familyTreeService.getDescendants(Integer.parseInt(NodeId)));
+            String nodeId = IOUtils.getNodeId();
+            NumberValidator.isValid(nodeId);
+            IOUtils.getOutput(familyTreeService.getDescendants(Integer.parseInt(nodeId)));
             break;
           }
           case 5: {
-            String ParentId = InputOutputUtil.getParentId();
-            String ChildId = InputOutputUtil.getChildId();
-            NumberValidator.isValid(ParentId);
-            NumberValidator.isValid(ChildId);
-            familyTreeService.deleteEdge(Integer.parseInt(ParentId), Integer.parseInt(ChildId));
+            String parentId = IOUtils.getParentId();
+            String childId = IOUtils.getChildId();
+            NumberValidator.isValid(parentId);
+            NumberValidator.isValid(childId);
+            familyTreeService.deleteEdge(Integer.parseInt(parentId), Integer.parseInt(childId));
             break;
           }
           case 6: {
-            String NodeId = InputOutputUtil.getNodeId();
-            NumberValidator.isValid(NodeId);
-            familyTreeService.deleteNode(Integer.parseInt(NodeId));
+            String nodeId = IOUtils.getNodeId();
+            NumberValidator.isValid(nodeId);
+            familyTreeService.deleteNode(Integer.parseInt(nodeId));
             break;
           }
           case 7: {
-            String ParentId = InputOutputUtil.getParentId();
-            String ChildId = InputOutputUtil.getChildId();
-            NumberValidator.isValid(ParentId);
-            NumberValidator.isValid(ChildId);
-            familyTreeService.addEdge(Integer.parseInt(ParentId), Integer.parseInt(ChildId));
+            String parentId = IOUtils.getParentId();
+            String childId = IOUtils.getChildId();
+            NumberValidator.isValid(parentId);
+            NumberValidator.isValid(childId);
+            familyTreeService.addEdge(Integer.parseInt(parentId), Integer.parseInt(childId));
             break;
           }
           case 8: {
-            String NodeId = InputOutputUtil.getNodeId();
-            String NodeName = InputOutputUtil.getNodeName();
-            String AdditionalInfo = InputOutputUtil.getAdditionalInfo();
-            NumberValidator.isValid(NodeId);
-            familyTreeService.addNode(Integer.parseInt(NodeId), NodeName, AdditionalInfo);
+            String nodeId = IOUtils.getNodeId();
+            String nodeName = IOUtils.getNodeName();
+            String additionalInfo = IOUtils.getAdditionalInfo();
+            NumberValidator.isValid(nodeId);
+            familyTreeService.addNode(Integer.parseInt(nodeId), nodeName, additionalInfo);
             break;
           }
           case 9: {
@@ -80,7 +80,7 @@ public class FamilyTreeControllers {
         }
       }
     } catch (Exception e) {
-        System.out.println(e.getMessage());
+      IOUtils.getOutput(e.getMessage());
     }
   }
 }

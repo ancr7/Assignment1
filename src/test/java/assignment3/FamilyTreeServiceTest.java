@@ -3,9 +3,7 @@ package assignment3;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import assignment2.GetSortFactory;
-import assignment2.enums.SortType;
-import assignment2.sort_package.SortByModel;
+import assignment3.exceptions.InvalidException;
 import assignment3.utils.validators.NumberValidator;
 import assignment3.utils.validators.SingleDigitNumberValidator;
 import java.util.ArrayList;
@@ -56,9 +54,9 @@ class FamilyTreeServiceTest {
 
   @Test
   void getImmediateChildrenWhenInputNodeIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = new ArrayList<Integer>();
     try {
+      familyTreeService.addNode(1, "", "");
+      List<Integer> parent = new ArrayList<Integer>();
       parent = familyTreeService.getImmediateChildren(2);
       assert (false);
     } catch (Exception e) {
@@ -68,9 +66,14 @@ class FamilyTreeServiceTest {
 
   @Test
   void getImmediateChildrenWhenChildIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = familyTreeService.getImmediateChildren(1);
-    assertEquals(true, parent.isEmpty());
+    try {
+      familyTreeService.addNode(1, "", "");
+      List<Integer> parent = familyTreeService.getImmediateChildren(1);
+      assertEquals(true, parent.isEmpty());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
   }
 
   @Test
@@ -88,16 +91,20 @@ class FamilyTreeServiceTest {
 
   @Test
   void getAncestorsWhenAncestorsIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = familyTreeService.getAncestors(1);
-    assertEquals(true, parent.isEmpty());
+    try {
+      familyTreeService.addNode(1, "", "");
+      List<Integer> parent = familyTreeService.getAncestors(1);
+      assertEquals(true, parent.isEmpty());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Test
   void getAncestorsWhenInputNodeIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = new ArrayList<Integer>();
     try {
+      familyTreeService.addNode(1, "", "");
+      List<Integer> parent = new ArrayList<Integer>();
       parent = familyTreeService.getAncestors(2);
       assert (false);
     } catch (Exception e) {
@@ -122,16 +129,30 @@ class FamilyTreeServiceTest {
 
   @Test
   void getDescendantsWhenDescendantsIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = familyTreeService.getDescendants(1);
-    assertEquals(true, parent.isEmpty());
+    try {
+      List<Integer> parent = null;
+      familyTreeService.addNode(1, "", "");
+      parent = familyTreeService.getDescendants(1);
+      assertEquals(true, parent.isEmpty());
+    } catch (InvalidException e) {
+      e.printStackTrace();
+    }
   }
-
+  @Test
+  void getAncestorsWhenInputAncestorIsAbsent() {
+    try {
+      familyTreeService.addNode(1, "a", "a");
+      familyTreeService.deleteEdge(2,1);
+      assert (false);
+    } catch (Exception e) {
+      assertTrue(e.getMessage().contains("Parent Node not found."));
+    }
+  }
   @Test
   void getDescendantsWhenInputNodeIsAbsent() {
-    familyTreeService.addNode(1, "", "");
-    List<Integer> parent = new ArrayList<Integer>();
     try {
+      List<Integer> parent = new ArrayList<Integer>();
+      familyTreeService.addNode(1, "", "");
       parent = familyTreeService.getDescendants(2);
       assert (false);
     } catch (Exception e) {
@@ -156,10 +177,12 @@ class FamilyTreeServiceTest {
 
   @Test
   void addEdgeWhenCycleForms() {
-    familyTreeService.addNode(1, "", "");
-    familyTreeService.addNode(2, "", "");
-    familyTreeService.addNode(3, "", "");
     try {
+
+      familyTreeService.addNode(1, "", "");
+      familyTreeService.addNode(2, "", "");
+      familyTreeService.addNode(3, "", "");
+
       familyTreeService.addEdge(1, 2);
       familyTreeService.addEdge(2, 3);
       familyTreeService.addEdge(3, 1);
@@ -171,9 +194,9 @@ class FamilyTreeServiceTest {
 
   @Test
   void deleteEdgeWhenNodeNotPresent() {
-    familyTreeService.addNode(1, "", "");
-    familyTreeService.addNode(2, "", "");
     try {
+      familyTreeService.addNode(1, "", "");
+      familyTreeService.addNode(2, "", "");
       familyTreeService.deleteEdge(1, 5);
       assert (false);
     } catch (Exception e) {
@@ -183,9 +206,9 @@ class FamilyTreeServiceTest {
 
   @Test
   void deleteEdgeWhenEdgeNotPresent() {
-    familyTreeService.addNode(1, "", "");
-    familyTreeService.addNode(2, "", "");
     try {
+      familyTreeService.addNode(1, "", "");
+      familyTreeService.addNode(2, "", "");
       familyTreeService.deleteEdge(1, 2);
       assert (false);
     } catch (Exception e) {
@@ -206,9 +229,9 @@ class FamilyTreeServiceTest {
 
   @Test
   void deleteNodeWhenNodeNotPresent() {
-    familyTreeService.addNode(1, "", "");
-    familyTreeService.addNode(2, "", "");
     try {
+      familyTreeService.addNode(1, "", "");
+      familyTreeService.addNode(2, "", "");
       familyTreeService.deleteNode(3);
       assert (false);
     } catch (Exception e) {
@@ -218,9 +241,9 @@ class FamilyTreeServiceTest {
 
   @Test
   void deleteNodeWhenNodeIsPresent() {
-    familyTreeService.addNode(1, "", "");
-    familyTreeService.addNode(2, "", "");
     try {
+      familyTreeService.addNode(1, "", "");
+      familyTreeService.addNode(2, "", "");
       familyTreeService.deleteNode(1);
       familyTreeService.validateEdgeNodeId(1);
       assert (false);
@@ -237,15 +260,18 @@ class FamilyTreeServiceTest {
       assert false;
     }
   }
+
   @Test
   void checkSingleDigitNumberValidatorError() {
     try {
       SingleDigitNumberValidator.isValid("23");
       assert false;
     } catch (Exception e) {
-      assertEquals("Invalid number format",e.getMessage());
+      System.out.println(e.getMessage());
+      assertEquals("Invalid number format", e.getMessage());
     }
   }
+
   @Test
   void checkNumberValidator() {
     try {
@@ -254,22 +280,15 @@ class FamilyTreeServiceTest {
       assert false;
     }
   }
+
   @Test
   void checkNumberValidatorError() {
     try {
       NumberValidator.isValid("2A");
       assert false;
     } catch (Exception e) {
-      assertEquals("Invalid number format",e.getMessage());
+      assertEquals("Invalid number format", e.getMessage());
     }
   }
-  @Test
-  void checkGetSortFactoryInvalidChoice() {
-    try {
-      SortByModel model = GetSortFactory.getFactory(4, SortType.ASCENDING);
-      assert false;
-    } catch (Exception e) {
-      assertEquals("Invalid choice",e.getMessage());
-    }
-  }
+
 }

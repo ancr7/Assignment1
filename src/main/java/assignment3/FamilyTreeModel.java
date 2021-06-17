@@ -2,32 +2,32 @@ package assignment3;
 
 public class FamilyTreeModel {
 
-  private int NodeId;
-  private String NodeName, AdditionalInfo;
+  private int nodeId;
+  private String nodeName, additionalInfo;
 
   // getter methods
   public int getNodeId() {
-    return NodeId;
+    return nodeId;
   }
 
   public String getNodeName() {
-    return NodeName;
+    return nodeName;
   }
 
   public String getAdditionalInfo() {
-    return AdditionalInfo;
+    return additionalInfo;
   }
 
   // setter methods
   public void setNodeId(final int nodeId) {
-    NodeId = nodeId;
+    this.nodeId = nodeId;
   }
 
   public void setNodeName(final String nodeName) {
-    NodeName = nodeName;
+    this.nodeName = nodeName;
   }
 
   public void setAdditionalInfo(final String additionalInfo) {
-    AdditionalInfo = additionalInfo;
+    this.additionalInfo = additionalInfo;
   }
 }

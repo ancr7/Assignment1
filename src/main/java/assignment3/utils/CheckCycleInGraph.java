@@ -7,16 +7,17 @@ import java.util.Queue;
 
 public class CheckCycleInGraph {
 
-  public static boolean hasCycle(final HashMap<Integer, HashSet<Integer>> Edge) {
+  // Topological sort to check graph has cyclic dependency or not.
+  public static boolean hasCycle(final HashMap<Integer, HashSet<Integer>> edgeList) {
     HashMap<Integer, Integer> inDegree = new HashMap<Integer, Integer>();
-    for (HashSet<Integer> value : Edge.values()) {
+    for (HashSet<Integer> value : edgeList.values()) {
       for (int a : value) {
         inDegree.put(a, inDegree.getOrDefault(a, 0) + 1);
       }
     }
     Queue<Integer> queue = new LinkedList<>();
     int ElementCount = 0;
-    for (var value : Edge.keySet()) {
+    for (var value : edgeList.keySet()) {
       if (!inDegree.containsKey(value)) inDegree.put(value, 0);
       if (inDegree.get(value) == 0) {
         queue.add(value);
@@ -25,10 +26,10 @@ public class CheckCycleInGraph {
     }
     while (!queue.isEmpty()) {
       var front = queue.poll();
-      for (int a : Edge.get(front)) {
+      for (int a : edgeList.get(front)) {
         inDegree.put(a, inDegree.get(a) - 1);
       }
-      for (int a : Edge.get(front)) {
+      for (int a : edgeList.get(front)) {
         if (inDegree.getOrDefault(a, 0) == 0) {
           queue.add(a);
           ElementCount += 1;
