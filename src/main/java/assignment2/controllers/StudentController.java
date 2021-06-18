@@ -56,7 +56,7 @@ public class StudentController {
           }
           case 3: { // delete data by rollNo
             IOUtils.getOutput(Constants.ENTER_ROLLNO);
-            String rollNo = IOUtils.getInput();
+            final String rollNo = IOUtils.getInput();
             studentService.deleteStudent(rollNo);
             break;
           }

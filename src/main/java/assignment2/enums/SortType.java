@@ -17,8 +17,8 @@ public enum SortType {
   public String getValue() { return value; }
 
   public static SortType stringToSortType(String test) throws InvalidException {
-    for (SortType c : SortType.values()) { // If ASCENDING or DESCENDING
-      if (c.name().equals(test)) return c;
+    for (SortType element : SortType.values()) { // If ASCENDING or DESCENDING
+      if (element.name().equals(test)) return element;
     }
     throw new InvalidInputException("Invalid option");
   }

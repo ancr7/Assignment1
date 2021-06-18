@@ -8,8 +8,8 @@ public enum CourseOption { // Course Option
   E,
   F;
   public static boolean contains(String test) {
-    for (CourseOption c : CourseOption.values()) {
-      if (c.name().equals(test)) return true;
+    for (CourseOption element : CourseOption.values()) {
+      if (element.name().equals(test)) return true;
     }
     return false;
   }
