@@ -1,0 +1,1 @@
+\AC\ED\00sr\00java.util.ArrayListx\81\D2\99\C7a\9D\00I\00sizexp\00\00\00w\00\00\00sr\00Assignment2.StudentModel\F2\8F\D2\E2vY\00I\00ageI\00rollNoL\00addresst\00Ljava/lang/String;[\00coursest\00[CL\00nameq\00~\00xp\00\00\00\00\00\00t\001ur\00[C\B0&f\B0\E2]\84\AC\00\00xp\00\00\00\00A\00B\00C\00Dt\00\00\00\00
